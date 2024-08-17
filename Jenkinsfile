@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-       DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
+        DOCKER_HUB_CREDENTIALS = credentials('dockerhub-credentials')
     }
     stages {
         stage('Checkout code') {
@@ -22,11 +22,12 @@ pipeline {
         }
        stage('Build and Push Image') {
             steps {
-                 withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-                    sh 'docker tag myimage abhinavrout9490/myimage'
+                     sh 'docker tag myimage abhinavrout9490/myimage'
                     sh 'docker push abhinavrout9490/myimage'
                 }
+                   
             }
         }
         stage('Run Docker Container') {
