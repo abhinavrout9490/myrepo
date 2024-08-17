@@ -10,12 +10,12 @@ pipeline {
                 git url: 'https://github.com/abhinavrout9490/myrepo.git', branch: 'main'
             }
         }
-       stage('cleanup stage') {
-            steps {
-                sh 'docker rmi -f myimage'
-                sh 'docker rm -f $(docker ps -aq)'
-            }
-        }
+    //    stage('cleanup stage') {
+    //         steps {
+    //             sh 'docker rmi -f myimage'
+    //             sh 'docker rm -f $(docker ps -aq)'
+    //         }
+    //     }
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t myimage .'
