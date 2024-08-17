@@ -24,6 +24,7 @@ pipeline {
        stage('Build and Push Image') {
             steps {
                     // sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                    sh 'docker tag myimage abhinavrout9490/myimage'
                     sh 'docker push abhinavrout9490/myimage'
             }
         }
