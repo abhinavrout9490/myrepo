@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout code') {
             steps {
-                git url: 'https://github.com/abhinavrout9490/streamlitrepo.git', branch: 'main'
+                git url: 'https://github.com/abhinavrout9490/myrepo.git', branch: 'main'
             }
         }
        
