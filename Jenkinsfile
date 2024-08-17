@@ -23,13 +23,8 @@ pipeline {
         }
        stage('Build and Push Image') {
             steps {
-                
-                try {
                     sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
                     sh 'docker push abhinavrout9490/myimage'
-                } catch (err) {
-                    echo "Error pushing image: ${err}"
-                }
             }
         }
         stage('Run Docker Container') {
