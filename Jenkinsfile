@@ -1,6 +1,9 @@
 pipeline {
     agent any
-   
+    environment {
+        DOCKER_USERNAME = 'abhinavrout9490'
+        DOCKER_PASSWORD = credentials('dockerhub-credentials') 
+    }
     stages {
         stage('Checkout code') {
             steps {
@@ -18,7 +21,17 @@ pipeline {
                 sh 'docker build -t myimage .'
             }
         }
-       
+       stage('Build and Push Image') {
+            steps {
+                
+                try {
+                    sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                    sh 'docker push abhinavrout9490/myimage'
+                } catch (err) {
+                    echo "Error pushing image: ${err}"
+                }
+            }
+        }
         stage('Run Docker Container') {
             steps {
                 sh 'docker run -d -p 8501:8501 myimage'
